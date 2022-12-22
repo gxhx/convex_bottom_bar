@@ -42,7 +42,8 @@ class FixedCircleTabStyle extends InnerBuilder {
     var c = active ? activeColor : color;
     var item = items[index];
     var style = ofStyle(context);
-    var textStyle = style.textStyle(c, item.fontFamily);
+    var textStyle = style.textStyle(c, item.fontFamily).merge(TextStyle(fontWeight: active?FontWeight.w700:FontWeight.normal));
+
     var margin = style.activeIconMargin;
 
     if (index == convexIndex) {
@@ -64,19 +65,11 @@ class FixedCircleTabStyle extends InnerBuilder {
       );
     }
 
-    var noLabel = style.hideEmptyLabel && hasNoText(item);
-    var icon = BlendImageIcon(
-      active ? item.activeIcon ?? item.icon : item.icon,
-      color: item.blend ? (c) : null,
-      size: style.iconSize,
-    );
-    var children = noLabel
-        ? <Widget>[icon]
-        : <Widget>[icon, Text(item.title ?? '', style: textStyle)];
+    var children = [Text(item.title ?? '', style: textStyle)];
     return Container(
-      padding: EdgeInsets.only(bottom: 2),
+      padding: EdgeInsets.only(top: 8),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: children,
       ),
     );

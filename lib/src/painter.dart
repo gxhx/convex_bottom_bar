@@ -41,11 +41,14 @@ class ConvexPainter extends CustomPainter {
   /// RLT support
   final TextDirection? textDirection;
 
+  final double circleSize;
+
   /// Create painter
   ConvexPainter({
     required this.top,
     required this.width,
     required this.height,
+    required this.circleSize,
     this.leftPercent = const AlwaysStoppedAnimation<double>(0.5),
     this.textDirection,
     Color color = Colors.white,
@@ -73,7 +76,7 @@ class ConvexPainter extends CustomPainter {
         ? (1 - leftPercent.value)
         : leftPercent.value;
     var guest =
-        Rect.fromLTWH(size.width * percent - width / 2, top, width, height);
+        Rect.fromLTWH(size.width * percent - circleSize/2, 0, circleSize, height);
     _gradient.updateWith(_paint, size: host);
     var path = _shape.getOuterPath(host, guest);
     canvas.drawPath(path, _shadowPaint);

@@ -100,6 +100,7 @@ class ConvexButton extends StatelessWidget {
             top: -(top ?? _DEFAULT_TOP),
             width: size ?? _DEFAULT_SIZE,
             height: size ?? _DEFAULT_SIZE,
+            circleSize: size ?? _DEFAULT_SIZE,
             color: backgroundColor ?? Colors.grey[50]!,
             sigma: sigma ?? _DEFAULT_SIGMA,
             leftPercent: const AlwaysStoppedAnimation<double>(0.5),

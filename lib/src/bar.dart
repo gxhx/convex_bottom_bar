@@ -33,7 +33,7 @@ import 'style/styles.dart';
 const double CONVEX_SIZE = 80;
 
 /// Default height of the AppBar.
-const double BAR_HEIGHT = 50;
+const double BAR_HEIGHT = 58;
 
 /// Default distance that the child's top edge is inset from the top of the stack.
 const double CURVE_TOP = -25;
@@ -138,6 +138,9 @@ class ConvexAppBar extends StatefulWidget {
   /// Size of the curve line.
   final double? curveSize;
 
+  /// Size of the curve line.
+  final double? circleSize;
+
   /// The distance that the [actionButton] top edge is inset from the top of the AppBar.
   final double? top;
 
@@ -203,6 +206,7 @@ class ConvexAppBar extends StatefulWidget {
     Gradient? gradient,
     double? height,
     double? curveSize,
+    double? circleSize,
     double? top,
     double? elevation,
     double? cornerRadius,
@@ -230,6 +234,7 @@ class ConvexAppBar extends StatefulWidget {
           gradient: gradient,
           height: height,
           curveSize: curveSize,
+          circleSize: circleSize,
           top: top,
           elevation: elevation,
           cornerRadius: cornerRadius,
@@ -270,7 +275,7 @@ class ConvexAppBar extends StatefulWidget {
     this.elevation,
     this.cornerRadius,
     this.curve = Curves.easeInOut,
-    this.chipBuilder,
+    this.chipBuilder, this.circleSize,
   })  : assert(top == null || top <= 0, 'top should be negative'),
         assert(initialActiveIndex == null || initialActiveIndex < count,
             'initial index should < $count'),
@@ -317,7 +322,7 @@ class ConvexAppBar extends StatefulWidget {
     Color? shadowColor,
     Gradient? gradient,
     double? height,
-    double? curveSize,
+    double? curveSize, double? circleSize,
     double? top,
     double? elevation,
     double? cornerRadius,
@@ -350,6 +355,7 @@ class ConvexAppBar extends StatefulWidget {
       gradient: gradient,
       height: height,
       curveSize: curveSize,
+      circleSize: circleSize,
       top: top,
       elevation: elevation,
       cornerRadius: cornerRadius,
@@ -560,6 +566,7 @@ class ConvexAppBarState extends State<ConvexAppBar>
               top: widget.top ?? CURVE_TOP,
               width: widget.curveSize ?? CONVEX_SIZE,
               height: widget.curveSize ?? CONVEX_SIZE,
+              circleSize: widget.circleSize ?? CONVEX_SIZE,
               color: widget.backgroundColor ?? Colors.blue,
               shadowColor: widget.shadowColor ?? Colors.black38,
               gradient: widget.gradient,
@@ -572,11 +579,11 @@ class ConvexAppBarState extends State<ConvexAppBar>
         ),
         _barContent(height, additionalBottomPadding, convexIndex),
         Positioned.fill(
-          top: widget.top ?? CURVE_TOP,
-          bottom: additionalBottomPadding,
-          child: FractionallySizedBox(
-              widthFactor: factor,
-              alignment: offset,
+          top: -4,
+          child: Align(
+              // widthFactor: factor,
+              // alignment: offset,
+            alignment: Alignment.topCenter,
               child: GestureDetector(
                 onTap: () => _onTabClick(convexIndex),
                 child: _newTab(convexIndex, active),
